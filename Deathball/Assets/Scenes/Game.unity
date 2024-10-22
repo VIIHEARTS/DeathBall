@@ -126,6 +126,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3243167364113013384, guid: 8eeeb877e78dae74694f21e238f6752b, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860991343192482507, guid: 8eeeb877e78dae74694f21e238f6752b, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6780475052297592398, guid: 8eeeb877e78dae74694f21e238f6752b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -169,6 +177,10 @@ PrefabInstance:
     - target: {fileID: 8026275614174711380, guid: 8eeeb877e78dae74694f21e238f6752b, type: 3}
       propertyPath: m_Name
       value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026275614174711380, guid: 8eeeb877e78dae74694f21e238f6752b, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -320,6 +332,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4860991343192482507, guid: 8eeeb877e78dae74694f21e238f6752b, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6780475052297592398, guid: 8eeeb877e78dae74694f21e238f6752b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7

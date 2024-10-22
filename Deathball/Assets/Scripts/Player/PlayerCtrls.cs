@@ -9,6 +9,7 @@ public class PlayerCtrls : MonoBehaviour
     private Vector2 moveInput;
     Rigidbody2D rb;
     public bool hasMoved;
+    public bool isPlayer1;
 
 
     private float currentSpeed;
@@ -32,15 +33,24 @@ public class PlayerCtrls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
+        if (isPlayer1)
+        {
+            moveInput.x = Input.GetAxisRaw("Horizontal");
+            moveInput.y = Input.GetAxisRaw("Vertical");
+        }
+        else
+        {
+            moveInput.x = Input.GetAxisRaw("Horizontal2");
+            moveInput.y = Input.GetAxisRaw("Vertical2");
+        }
+        
 
         rb.linearVelocity = moveInput * currentSpeed;
 
-        Vector2 playerPos = GameObject.Find("Player").transform.position;
+        Vector2 playerPos = GameObject.FindWithTag("Player").transform.position;
         hasMoved = playerPos != Vector2.zero;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (isPlayer1 && Input.GetButtonDown("FireP1"))
         {
             if (dashCountdown <= 0  && dashCooldownTicker <= 0)
             {
@@ -49,6 +59,17 @@ public class PlayerCtrls : MonoBehaviour
                 dashCooldownTicker = dashCooldown;
             }
         }
+
+        if (!isPlayer1 && Input.GetButtonDown("FireP2"))
+        {
+            if (dashCountdown <= 0 && dashCooldownTicker <= 0)
+            {
+                currentSpeed = dashSpeed;
+                dashCountdown = dashDuration;
+                dashCooldownTicker = dashCooldown;
+            }
+        }
+
 
 
 

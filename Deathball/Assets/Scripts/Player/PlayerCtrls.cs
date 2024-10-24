@@ -4,12 +4,23 @@ using UnityEngine.UIElements;
 
 public class PlayerCtrls : MonoBehaviour
 {
+
+    public PlayerBatting ballScript;
+
     private float movSpeed = 5f;
     float speedX, speedY;
     private Vector2 moveInput;
     Rigidbody2D rb;
-    public bool hasMoved;
     public bool isPlayer1;
+
+    public bool hasAttacked;
+    public bool canAttack;
+    public float attackCooldown;
+    public float attackCooldownTicker;
+    public float attackCooldownMax;
+
+    public GameObject racket;
+
 
 
     private float currentSpeed;
@@ -37,20 +48,24 @@ public class PlayerCtrls : MonoBehaviour
         {
             moveInput.x = Input.GetAxisRaw("Horizontal");
             moveInput.y = Input.GetAxisRaw("Vertical");
+
+            hasAttacked = Input.GetButton("FireP1");
         }
         else
         {
             moveInput.x = Input.GetAxisRaw("Horizontal2");
             moveInput.y = Input.GetAxisRaw("Vertical2");
+
+            hasAttacked = Input.GetButton("FireP2");
         }
         
 
         rb.linearVelocity = moveInput * currentSpeed;
 
         Vector2 playerPos = GameObject.FindWithTag("Player").transform.position;
-        hasMoved = playerPos != Vector2.zero;
+        ballScript.hasMoved = playerPos != Vector2.zero;
 
-        if (isPlayer1 && Input.GetButtonDown("FireP1"))
+        if (isPlayer1 && Input.GetButtonDown("DashP1"))
         {
             if (dashCountdown <= 0  && dashCooldownTicker <= 0)
             {
@@ -60,7 +75,7 @@ public class PlayerCtrls : MonoBehaviour
             }
         }
 
-        if (!isPlayer1 && Input.GetButtonDown("FireP2"))
+        if (!isPlayer1 && Input.GetButtonDown("DashP2"))
         {
             if (dashCountdown <= 0 && dashCooldownTicker <= 0)
             {
@@ -69,6 +84,8 @@ public class PlayerCtrls : MonoBehaviour
                 dashCooldownTicker = dashCooldown;
             }
         }
+
+
 
 
 
@@ -93,6 +110,41 @@ public class PlayerCtrls : MonoBehaviour
             {
                 dashCooldownTicker = 0; 
             }
+        }
+
+
+
+        if (hasAttacked == true)
+        {
+            racket.SetActive(true);
+        }
+        else
+        {
+            racket.SetActive(false);
+        }
+
+
+        if (isPlayer1 && Input.GetButton("FireP1"))
+        {
+            if (attackCooldownMax >= 0 && attackCooldownTicker == 0)
+            {
+                attackCooldownTicker = attackCooldownMax;
+            }
+        }
+
+        if (attackCooldownTicker >= 0)
+        {
+            attackCooldownTicker -= Time.deltaTime;            
+        }
+
+        if (attackCooldownTicker <= 0)
+        {
+            attackCooldownTicker = 0;
+            canAttack = true;
+        }
+        else
+        {
+            canAttack = false;
         }
 
     }
